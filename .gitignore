@@ -1,0 +1,14 @@
+**/target/**
+*.log
+.apt_generated
+.classpath
+.project
+.settings
+.idea
+.factorypath
+
+/dist/
+
+/shelf/
+/workspace.xml
+/target
