@@ -39,10 +39,10 @@ public class RequestUtil {
         return get(uri, headers, clazz);
     }
 
-    private <U> U get(URI url, HttpHeaders headers, Class<U> clazz) {
+    public <U> U get(URI url, HttpHeaders headers, Class<U> clazz) {
+        log.debug("get request url: {} ", url);
 
         U response = null;
-
         try{
             headers.remove("Content-Type");
             HttpEntity httpEntity = new HttpEntity(null, headers);
@@ -64,7 +64,6 @@ public class RequestUtil {
         } catch (Exception ex) {
 //            throw new ServiceException(ExceptionCodes.SERVER_ERROR, ExceptionUtils.);
         }
-
 
         return response;
     }
