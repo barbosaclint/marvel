@@ -27,10 +27,8 @@ public class MarvelController {
     }
 
     @GetMapping(value = "/getallcharacters", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MarvelCharacterData> getAllCharacters() {
+    public ResponseEntity<int[]> getAllCharacters() {
 
-        MarvelCharacterData marvelCharacterData = marvelCharacterService.getCharacterAll();
-
-        return ResponseEntity.ok(marvelCharacterData);
+        return ResponseEntity.ok(marvelCharacterService.getCharacterAll());
     }
 }

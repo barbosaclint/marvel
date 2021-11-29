@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class MarvelCharacterResults {
 
-    List<MarvelCharacter> results;
+    private List<MarvelCharacter> results;
 }
