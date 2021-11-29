@@ -1,19 +1,36 @@
 package com.clint.marvel.controller;
 
-import com.clint.marvel.model.Character;
+import com.clint.marvel.model.MarvelCharacterData;
+import com.clint.marvel.service.MarvelCharacterService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(value ="/" )
+@RequestMapping(value ="/clint-marvel-api" )
+@RequiredArgsConstructor
 public class MarvelController {
 
-    private final Marve
+    private final MarvelCharacterService marvelCharacterService;
 
-    public ResponseEntity<Character> getCharacter(@PathVariable int characterId) {
+    @GetMapping(value = "/getcharacter/{characterId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MarvelCharacterData> getCharacter(@PathVariable int characterId) {
+        MarvelCharacterData marvelCharacterData = marvelCharacterService.getCharacter(characterId);
 
-        return ResponseEntity.ok()
+        return ResponseEntity.ok(marvelCharacterData);
+    }
+
+    @GetMapping(value = "/getallcharacters", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MarvelCharacterData> getAllCharacters() {
+
+        MarvelCharacterData marvelCharacterData = marvelCharacterService.getCharacterAll();
+
+        return ResponseEntity.ok(marvelCharacterData);
     }
 }

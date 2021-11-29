@@ -1,35 +1,32 @@
 package com.clint.marvel.exception;
 
+import lombok.Data;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
-public class BaseServiceException extends RuntimeException {
+public class BaseServiceException extends RuntimeException{
 
-    private static final long serialVersionUID = 9000407860332921360L;
     private final String code;
-    private final String msg;
-    private final transient Object detail;
+    private final String status;
+    private final HttpStatus httpStatus;
 
-    public BaseServiceException(String code, String msg, Object detail){
-        super(msg);
+    public BaseServiceException(String code, String status, HttpStatus httpStatus){
         this.code = code;
-        this.msg = msg;
-        this.detail = detail;
+        this.status = status;
+        this.httpStatus = httpStatus;
     }
 
-    public BaseServiceException(BaseServiceException e){
-        super(e.getMsg());
+    public BaseServiceException(ErrorCodes errorCodes){
+        this.code = errorCodes.getCode();
+        this.status = errorCodes.getMessage();
+        this.httpStatus = errorCodes.getHttpStatus();
+    }
+
+    public BaseServiceException(BaseServiceException e, HttpStatus httpStatus){
         this.code = e.getCode();
-        this.msg = e.getMsg();
-        this.detail = e.getDetail();
-    }
-
-    public BaseServiceException(String code, String msg){
-        throw new BaseServiceException(code, msg, null);
-    }
-
-    public BaseServiceException(String code){
-        throw new BaseServiceException(code, null, null);
+        this.status = e.getStatus();
+        this.httpStatus = httpStatus;
     }
 
 }

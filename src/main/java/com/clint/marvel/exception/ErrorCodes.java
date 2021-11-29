@@ -6,11 +6,11 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
-public enum ExceptionCodes {
+public enum ErrorCodes {
 
     SERVER_ERROR("0002","Server Error", HttpStatus.INTERNAL_SERVER_ERROR),
     SERVER_UNAVAILABLE("0003","Server Error", HttpStatus.OK),
-    SOME_OTHER_EXCEPTIONS("0004","Dont KnowError", HttpStatus.BAD_REQUEST);
+    SOME_OTHER_EXCEPTIONS("0004","Something went wrong", HttpStatus.BAD_REQUEST);
 
     private final String code;
     private final String message;

@@ -3,8 +3,12 @@ package com.clint.marvel.util;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 
 public class MarvelUtil {
+
+    public static Instant instant = Instant.now();
+    public static long timeStamp = instant.toEpochMilli();
 
     public static String MD5hash(String privateKey, String publicKey, Long timestamp) {
         try {
