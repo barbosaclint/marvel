@@ -67,7 +67,7 @@ public class RequestUtil {
             }
 
         } catch (Exception e) {
-            throw new BaseServiceException(ErrorCodes.SERVER_ERROR);
+            throw new BaseServiceException(ErrorCodes.SOME_OTHER_EXCEPTIONS);
         }
 
         return response;

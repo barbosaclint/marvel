@@ -2,9 +2,11 @@ package com.clint.marvel.exception;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 @Getter
+@Setter
 public class BaseServiceException extends RuntimeException{
 
     private final String code;
