@@ -1,6 +1,6 @@
 package com.clint.marvel.exception;
 
-import lombok.Data;
+import com.clint.marvel.util.MarvelUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -9,26 +9,19 @@ import org.springframework.http.HttpStatus;
 @Setter
 public class BaseServiceException extends RuntimeException{
 
-    private final String code;
     private final String status;
+    private final String timeStamp;
     private final HttpStatus httpStatus;
 
-    public BaseServiceException(String code, String status, HttpStatus httpStatus){
-        this.code = code;
-        this.status = status;
+    public BaseServiceException(Throwable throwable, HttpStatus httpStatus, String timeStamp) {
+        this.status = throwable.getMessage();
+        this.timeStamp = timeStamp;
         this.httpStatus = httpStatus;
     }
 
-    public BaseServiceException(ErrorCodes errorCodes){
-        this.code = errorCodes.getCode();
-        this.status = errorCodes.getMessage();
-        this.httpStatus = errorCodes.getHttpStatus();
+    public BaseServiceException(Throwable throwable) {
+        this.status = throwable.getMessage();
+        this.timeStamp = null;
+        this.httpStatus = null;
     }
-
-    public BaseServiceException(BaseServiceException e, HttpStatus httpStatus){
-        this.code = e.getCode();
-        this.status = e.getStatus();
-        this.httpStatus = httpStatus;
-    }
-
 }

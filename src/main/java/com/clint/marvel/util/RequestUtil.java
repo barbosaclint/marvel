@@ -1,18 +1,16 @@
 package com.clint.marvel.util;
 
 import com.clint.marvel.exception.BaseServiceException;
-import com.clint.marvel.exception.ErrorCodes;
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
 import java.util.HashMap;
@@ -59,24 +57,17 @@ public class RequestUtil {
             ResponseEntity<String> exchange = restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
             String responseStr = exchange.getBody();
             JsonUtil.parseObject(responseStr, clazz);
-            handleError(responseStr);
-            //get response data
             response = JsonUtil.parseObject(responseStr, clazz);
-            if (response == null){
-                throw new BaseServiceException(ErrorCodes.SERVER_ERROR);
-            }
 
-        } catch (Exception e) {
-            throw new BaseServiceException(ErrorCodes.SOME_OTHER_EXCEPTIONS);
+        } catch (Exception ex) {
+//            throw new BaseServiceException(ex, HttpStatus.BAD_REQUEST, MarvelUtil.instant + "");
+            log.debug(ex.getMessage());
+            throw new BaseServiceException(ex);
         }
 
         return response;
     }
 
-    private static void handleError(String responseStr) throws IOException {
-        log.debug("responsestr -- {} ", responseStr);
-        JsonNode errorDetailNode = JsonUtil.getJsonNode(responseStr, "ErrorDetail");
-    }
 
 
 }
